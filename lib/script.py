@@ -17,7 +17,7 @@ def main():
         xlabel('Number of iterations')
         ylabel('Utility estimates')
         title('Graph of utility')
-        axis([0, 25, 0, 1])
+        # axis([0, 25, 0, 1])
         data = open(file_name, 'r')
         data_of_usability = open('data_of_usability.txt', 'w')
         data_of_politics = open('data_of_politics.txt', 'w')
