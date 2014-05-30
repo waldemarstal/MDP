@@ -1,26 +1,29 @@
 class ValueIterateAlgorithm():
-    def __init__(self, n, m, r, d, s, a, b):
-        self.a = a
-        self.b = b
-        self.discounting = d
-        self.n = n
-        self.m = m
-        self.u = [[0 for i in range(n)] for j in range(m)]
+    def __init__(self, n, m, r, d, a, b, g, gb, ns):
+        self.a = float(a)
+        self.b = float(b)
+        self.discounting = float(d)
+        self.n = int(n)
+        self.m = int(m)
+        self.u = [[0 for i in range(self.n)] for j in range(self.m)]
         self.new_u = list(self.u)
         self.r = r
         self.move = 'UP DOWN LEFT RIGHT'.split()
-        self.x = s[0]
-        self.y = s[1]
+        self.g = float(g)
+        self.gb = float(gb)
+        self.ns = float(ns)
 
     def usability_table(self):
         for pos_y in range(self.m):
-            for j in range(self.n):
-                if self.r[pos_y][j] == '*':
-                    self.usability((j, pos_y))
-                elif self.r[pos_y][j] == '.':
-                    self.new_u[pos_y][j] = 0
-                else:
-                    self.new_u[pos_y][j] = int(self.r[pos_y][j])
+            for pos_x in range(self.n):
+                if self.r[pos_y][pos_x] == '*':
+                    self.usability((pos_x, pos_y))
+                elif self.r[pos_y][pos_x] == 'F':
+                    self.new_u[pos_y][pos_x] = 0
+                elif self.r[pos_y][pos_x] == 'G':
+                    self.new_u[pos_y][pos_x] = self.g
+                elif self.r[pos_y][pos_x] == 'GB':
+                    self.new_u[pos_y][pos_x] = self.gb
         self.new_u, self.u = self.u, self.new_u
 
     def usability(self, s):
@@ -65,13 +68,15 @@ class ValueIterateAlgorithm():
             res = [(x, y - 1), (x - 1, y), (x, y), (x + 1, y)]
         else:
             res = [(x, y - 1), (x - 1, y), (x, y + 1), (x + 1, y)]
-        return [pos if self.r[pos[1]][pos[0]] != '.' else (x, y) for pos in res]
+        return [pos if self.r[pos[1]][pos[0]] != 'F' else (x, y) for pos in res]
 
 
     def value_of_r(self, x, y):
         if self.r[y][x] == '*':
-            return -0.04
-        elif self.r[y][x] == '.':
+            return self.ns
+        elif self.r[y][x] == 'F':
             return 0
-        else:
-            return int(self.r[y][x])
+        elif self.r[y][x] == 'G':
+            return self.g
+        elif self.r[y][x] == 'GB':
+            return self.gb

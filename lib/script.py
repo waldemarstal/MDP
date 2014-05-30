@@ -12,16 +12,16 @@ def main():
         sys.exit(0)
     file_name = args[0]
     try:
+        world = []
         data = open(file_name, 'r')
         result = open('result.txt', 'w')
-        data.readlines()
-        world = [
-            ['*', '*', '*', '1'],
-            ['*', '.', '*', '-1'],
-            ['*', '*', '*', '*'],
-        ]
+        lines = data.readlines()
+        param = lines[0].split()
+        for line in lines[1:]:
+            world.append(line.split())
         obj = ValueIterateAlgorithm(
-            4, 3, world, 0.99, (0, 0), 0.1, 0.8)
+            param[0], param[1], world, param[2], param[3], param[4], param[5],
+            param[6], param[7])
         for i in range(20):
             obj.usability_table()
             result.write(str(obj.u))
@@ -31,7 +31,6 @@ def main():
 
     except Exception as e:
         print '%s!' % e
-
 
 if __name__ == '__main__':
     main()
