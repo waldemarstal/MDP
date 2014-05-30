@@ -31,8 +31,8 @@ mdp file_name
 #### Structure of sample file:
 
     N M D A B NS
-    *:  *:  *:  G: 
-    *:  F:  *:  B:
+    *:  *:  *:  G:value
+    *:  F:  *:  B:value
     *:  *:  *:  *:
 
 Where:
@@ -43,3 +43,4 @@ Where:
     A - value of probability misses
     B - value of probability hits
     NS - value of normal state
+    value - int or float
