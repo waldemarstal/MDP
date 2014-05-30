@@ -36,6 +36,7 @@ mdp file_name
     *  *  *  *
 
 Where:
+
     N - size x
     M - size y
     D - value of discouting
