@@ -1,5 +1,5 @@
 class ValueIterateAlgorithm():
-    def __init__(self, n, m, r, d, a, b, g, gb, ns):
+    def __init__(self, n, m, r, d, a, b, ns):
         self.a = float(a)
         self.b = float(b)
         self.discounting = float(d)
@@ -9,21 +9,21 @@ class ValueIterateAlgorithm():
         self.new_u = list(self.u)
         self.r = r
         self.move = 'UP DOWN LEFT RIGHT'.split()
-        self.g = float(g)
-        self.gb = float(gb)
         self.ns = float(ns)
+        if 2 * self.a + self.b != 1:
+            raise Exception('Incorrect value of probability!')
 
     def usability_table(self):
         for pos_y in range(self.m):
             for pos_x in range(self.n):
-                if self.r[pos_y][pos_x] == '*':
+                if self.r[pos_y][pos_x][0] == '*':
                     self.usability((pos_x, pos_y))
-                elif self.r[pos_y][pos_x] == 'F':
+                elif self.r[pos_y][pos_x][0] == 'B':
+                    self.usability((pos_x, pos_y))
+                elif self.r[pos_y][pos_x][0] == 'F':
                     self.new_u[pos_y][pos_x] = 0
-                elif self.r[pos_y][pos_x] == 'G':
-                    self.new_u[pos_y][pos_x] = self.g
-                elif self.r[pos_y][pos_x] == 'GB':
-                    self.new_u[pos_y][pos_x] = self.gb
+                elif self.r[pos_y][pos_x][0] == 'G':
+                    self.new_u[pos_y][pos_x] = float(self.r[pos_y][pos_x][1])
         self.new_u, self.u = self.u, self.new_u
 
     def usability(self, s):
@@ -72,11 +72,19 @@ class ValueIterateAlgorithm():
 
 
     def value_of_r(self, x, y):
-        if self.r[y][x] == '*':
+        if self.r[y][x][0] == '*':
             return self.ns
-        elif self.r[y][x] == 'F':
+        elif self.r[y][x][0] == 'F':
             return 0
-        elif self.r[y][x] == 'G':
-            return self.g
-        elif self.r[y][x] == 'GB':
-            return self.gb
+        elif self.r[y][x][0] == 'G':
+            return float(self.r[y][x][1])
+        elif self.r[y][x][0] == 'B':
+            return float(self.r[y][x][1])
+
+    def str_repr_us_tab(self):
+        res = ''
+        for i in self.u:
+            for j in i:
+                res += str(j)
+                res += '  '
+        return res

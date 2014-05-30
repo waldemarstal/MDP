@@ -30,10 +30,10 @@ mdp file_name
 
 #### Structure of sample file:
 
-    N M D A B G GB
-    *  *  *  G 
-    *  F  *  GB
-    *  *  *  *
+    N M D A B NS
+    *:  *:  *:  G: 
+    *:  F:  *:  B:
+    *:  *:  *:  *:
 
 Where:
 
@@ -42,6 +42,4 @@ Where:
     D - value of discouting
     A - value of probability misses
     B - value of probability hits
-    G - value of terminal state
-    GB - value of bonus
     NS - value of normal state

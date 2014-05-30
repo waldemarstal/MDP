@@ -18,13 +18,12 @@ def main():
         lines = data.readlines()
         param = lines[0].split()
         for line in lines[1:]:
-            world.append(line.split())
+            world.append([l.split(':') for l in line.split()])
         obj = ValueIterateAlgorithm(
-            param[0], param[1], world, param[2], param[3], param[4], param[5],
-            param[6], param[7])
+            param[0], param[1], world, param[2], param[3], param[4], param[5])
         for i in range(20):
             obj.usability_table()
-            result.write(str(obj.u))
+            result.write(obj.str_repr_us_tab())
             result.write('\n')
         data.close()
         result.close()
