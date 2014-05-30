@@ -13,6 +13,8 @@ class ValueIterateAlgorithm():
         self.pol = [['' for i in range(self.n)] for j in range(self.m)]
         if 2 * self.a + self.b != 1:
             raise Exception('Incorrect value of probability!')
+        self.dict_with_column = {}
+        self.create_dwcol()
 
     def usability_table(self):
         for pos_y in range(self.m):
@@ -44,6 +46,7 @@ class ValueIterateAlgorithm():
         self.new_u[y][x] = round(self.value_of_r(x, y) + self.discounting * max(
             [sum([p * self.u[np[1]][np[0]] for np, p in self.outcomes(a, x, y)])
              for a in self.move]), 3)
+        self.dict_with_column[x, y].append(self.new_u[y][x])
 
     def politics(self, s):
         x, y = s[0], s[1]
@@ -129,3 +132,9 @@ class ValueIterateAlgorithm():
                 res += '  '
             res += '\n'
         return res
+
+    def create_dwcol(self):
+        for y in range(self.m):
+            for x in range(self.n):
+                if self.r[y][x][0] == '*' or self.r[y][x][0] == 'B':
+                    self.dict_with_column[x,y] = []

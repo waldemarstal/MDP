@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 import sys
+from pylab import *
 from optparse import OptionParser
 parser = OptionParser()
 (options, args) = parser.parse_args()
@@ -13,6 +14,10 @@ def main():
     file_name = args[0]
     try:
         world = []
+        xlabel('Number of iterations')
+        ylabel('Utility estimates')
+        title('Graph of utility')
+        axis([0, 25, 0, 1])
         data = open(file_name, 'r')
         data_of_usability = open('data_of_usability.txt', 'w')
         data_of_politics = open('data_of_politics.txt', 'w')
@@ -31,6 +36,11 @@ def main():
         data.close()
         data_of_usability.close()
         data_of_politics.close()
+        for key, value in obj.dict_with_column.iteritems():
+            plot(value, label=key)
+        legend()
+        savefig('graph.png')
+
 
     except Exception as e:
         print '%s!' % e
