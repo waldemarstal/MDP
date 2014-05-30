@@ -10,7 +10,7 @@ setup(
     packages=find_packages(),
     description='mdp',
     long_description='README.md',
-    install_requires=[],
+    install_requires=['matplotlib'],
     entry_points="""\
     [console_scripts]
     mdp = lib.script:main

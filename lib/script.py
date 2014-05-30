@@ -14,7 +14,8 @@ def main():
     try:
         world = []
         data = open(file_name, 'r')
-        result = open('result.txt', 'w')
+        data_of_usability = open('data_of_usability.txt', 'w')
+        data_of_politics = open('data_of_politics.txt', 'w')
         lines = data.readlines()
         param = lines[0].split()
         for line in lines[1:]:
@@ -23,10 +24,13 @@ def main():
             param[0], param[1], world, param[2], param[3], param[4], param[5])
         for i in range(20):
             obj.usability_table()
-            result.write(obj.str_repr_us_tab())
-            result.write('\n')
+            data_of_usability.write(obj.str_repr_us_tab())
+            data_of_usability.write('\n')
+        obj.politics_table()
+        data_of_politics.write(obj.str_repr_pol_tab())
         data.close()
-        result.close()
+        data_of_usability.close()
+        data_of_politics.close()
 
     except Exception as e:
         print '%s!' % e
